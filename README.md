@@ -37,6 +37,29 @@ Finally, register the dependency with the Segment SDK:
 
 By default, Segment only bundles `Firebase/Core` which is [Firebase's Analytics offering](https://firebase.google.com/docs/analytics/). You can see the other available [Firebase pods and features here](https://firebase.google.com/docs/ios/setup).
 
+## Troubleshooting
+
+For users who are unable to bundle static libraries as dependencies (Swift project for example) you can choose `StaticLibWorkaround` subspec, but be sure to include `Firebase/Core` in your Podfile:
+
+Example:
+
+```ruby
+  pod 'Firebase/Core', '~> 4.0'
+  pod 'Segment-Firebase/StaticLibWorkaround'
+```
+
+Next step, add manually 4 files to your project (located under `<YOUR_APP>/Pods/Segment-Firebase/Classes/`):
+
+ - `SEGFirebaseIntegration.h`
+ - `SEGFirebaseIntegration.m`
+ - `SEGFirebaseIntegrationFactory.h`
+ - `SEGFirebaseIntegrationFactory.m`
+
+Xcode will ask you to generate `<YOUR_APP_NAME>-Bridging-Header.h`
+Add to this file `#import "SEGFirebaseIntegrationFactory.h"`
+
+For more details follow the instructions from Apple [here](https://developer.apple.com/library/content/documentation/Swift/Conceptual/BuildingCocoaApps/MixandMatch.html).
+
 ## License
 
 Segment-Firebase is available under the MIT license. See the LICENSE file for more info.
