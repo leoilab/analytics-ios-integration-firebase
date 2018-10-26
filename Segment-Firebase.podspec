@@ -21,7 +21,7 @@ Pod::Spec.new do |s|
 
   s.source_files = 'Segment-Firebase/Classes/**/*'
   s.default_subspec = 'Core'
-  s.static_framework = true
+
 
   s.dependency 'Analytics', '~> 3.2'
   s.dependency 'Firebase/Core', '~> 5.0'
@@ -34,4 +34,12 @@ Pod::Spec.new do |s|
     # This will bundle in Firebase Dynamic Link support
     dynamiclinks.dependency 'Firebase/DynamicLinks'
   end
+
+  s.subspec 'StaticLibWorkaround' do |workaround|
+      # For users who are unable to bundle static libraries as dependencies
+      # you can choose this subspec, but be sure to include the folling in your podfile
+      # pod 'Firebase'
+      # Please manually add the following file preserved by Cocoapods to your xcodeproj file
+      workaround.preserve_paths = 'Segment-Firebase/Classes/**/*'
+    end
 end
